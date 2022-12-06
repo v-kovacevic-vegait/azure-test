@@ -13,5 +13,7 @@ namespace MealForFamily.Models
 
         [Required]
         public string Description { get; set; } = string.Empty;
+
+        public string NewTest { get; set; } = string.Empty;
     }
 }
