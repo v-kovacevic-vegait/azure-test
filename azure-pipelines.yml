@@ -26,6 +26,9 @@ stages:
         custom: 'tool'
         arguments: 'install --global dotnet-ef'
 
+    - script: dotnet tool restore
+      displayName: 'dotnet tool restore'
+
     - task: DotNetCoreCLI@2
       displayName: Check dotnet-ef version
       inputs:
