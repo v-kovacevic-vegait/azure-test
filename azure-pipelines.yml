@@ -39,8 +39,6 @@ stages:
     - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildConfiguration)'
 
-    - script: |
-        set ASPNETCORE_ENVIRONMENT=Release 
-        dotnet-ef database update
+    - script: dotnet-ef database update --connection "User ID =test;Password=test;Host=ec2-3-85-57-118.compute-1.amazonaws.com;Port=5434;Database=mealforfamilydb;"
       displayName: 'dotnet-ef database update'
 
