@@ -20,6 +20,13 @@ stages:
     steps:
 
     - task: DotNetCoreCLI@2
+      displayName: Install dotnet-ef
+      inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-ef --ignore-failed-source'
+
+    - task: DotNetCoreCLI@2
       displayName: Check dotnet-ef version
       inputs:
         command: 'custom'
