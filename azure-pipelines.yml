@@ -16,6 +16,6 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet ef database update
-  displayName: 'dotnet ef database update'
+- script: dotnet-ef database update
+  displayName: 'dotnet-ef database update'
 
