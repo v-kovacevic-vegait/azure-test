@@ -67,7 +67,7 @@ stages:
       inputs:
         buildType: 'specific'
         project: '474863c3-dee8-420d-b794-4679642f5427'
-        artifactName: 's'
+        artifactName: 'drop'
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         downloadPath: '$(System.ArtifactsDirectory)'
