@@ -65,7 +65,7 @@ stages:
     - task: DownloadBuildArtifacts@0
       displayName: Download artifact
       inputs:
-        buildType: 'current'
+        buildType: 'specific'
         project: '474863c3-dee8-420d-b794-4679642f5427'
         artifactName: 's'
         buildVersionToDownload: 'latest'
