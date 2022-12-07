@@ -19,23 +19,6 @@ stages:
       vmImage: ubuntu-latest
     steps:
 
-    - task: DotNetCoreCLI@2
-      displayName: Install dotnet-ef
-      inputs:
-        command: 'custom'
-        custom: 'tool'
-        arguments: 'install --global dotnet-ef'
-
-    - script: dotnet tool restore
-      displayName: 'Dotnet tool restore'
-
-    - task: DotNetCoreCLI@2
-      displayName: Check dotnet-ef version
-      inputs:
-        command: 'custom'
-        custom: 'ef'
-        arguments: '--version'
-
     - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'Dotnet build $(buildConfiguration)'
       
@@ -58,7 +41,27 @@ stages:
   jobs:  
   - job: Dev
     displayName: Deploy to Dev
+    pool:
+      vmImage: ubuntu-latest  
     steps:
+    
+    - task: DotNetCoreCLI@2
+      displayName: Install dotnet-ef
+      inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-ef'
+
+    - script: dotnet tool restore
+      displayName: 'Dotnet tool restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: Check dotnet-ef version
+      inputs:
+        command: 'custom'
+        custom: 'ef'
+        arguments: '--version'
+  
     - script: dotnet-ef database update --connection "x"
       displayName: 'Dotnet-ef database update'
 
