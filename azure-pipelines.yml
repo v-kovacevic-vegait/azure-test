@@ -61,6 +61,17 @@ stages:
         command: 'custom'
         custom: 'ef'
         arguments: '--version'
+        
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        project: '474863c3-dee8-420d-b794-4679642f5427'
+        pipeline: '1'
+        buildVersionToDownload: 'latest'
+        downloadType: 'single'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    
+    
   
     - script: dotnet-ef database update --connection "x"
       displayName: 'Dotnet-ef database update'
