@@ -53,6 +53,13 @@ stages:
         publishLocation: 'Container'
       displayName: 'Publish artifact'
 
+- stage: Dev
+  displayName: Deploy to Dev
+  jobs:  
+  - job: Dev
+    displayName: Deploy to Dev
+
+    steps:
     - script: dotnet-ef database update --connection "x"
       displayName: 'Dotnet-ef database update'
 
