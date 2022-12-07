@@ -63,10 +63,11 @@ stages:
         arguments: '--version'
         
     - task: DownloadBuildArtifacts@0
+      displayName: Download artifact
       inputs:
         buildType: 'current'
         project: '474863c3-dee8-420d-b794-4679642f5427'
-        pipeline: '1'
+        artifactName: 's'
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         downloadPath: '$(System.ArtifactsDirectory)'
