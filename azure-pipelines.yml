@@ -8,6 +8,7 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
+  ConnectionStrings.DefaultConnection: 'User ID =test;Password=test;Host=ec2-3-85-57-118.compute-1.amazonaws.com;Port=5434;Database=mealforfamilydb;'
 
 stages:
 - stage: Build
@@ -72,7 +73,12 @@ stages:
         downloadType: 'single'
         downloadPath: '$(System.DefaultWorkingDirectory)'
     
-    
+    - task: FileTransform@1
+      displayName: 'File transformation: appsettings.json'
+      inputs:
+        folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        fileType: 'json'
+        targetFiles: '''**/appsettings.json'''
   
     - script: dotnet-ef database update --connection "x"
       displayName: 'Dotnet-ef database update'
