@@ -80,6 +80,6 @@ stages:
         fileType: 'json'
         targetFiles: '**/appsettings.json'
   
-    - script: dotnet-ef database update --connection $(ConnectionStringDev)
+    - script: dotnet-ef database update --connection "$(ConnectionStringDev)"
       displayName: 'Dotnet-ef database update'
 
