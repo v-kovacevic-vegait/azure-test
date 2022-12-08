@@ -70,7 +70,7 @@ stages:
         artifactName: 'drop'
         buildVersionToDownload: 'latest'
         downloadType: 'single'
-        downloadPath: '$(System.ArtifactsDirectory)'
+        downloadPath: '$(System.DefaultWorkingDirectory)'
     
     
   
