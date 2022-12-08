@@ -78,7 +78,7 @@ stages:
       inputs:
         folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
         fileType: 'json'
-        targetFiles: '''**/appsettings.json'''
+        targetFiles: '''appsettings.json'''
   
     - script: dotnet-ef database update --connection "x"
       displayName: 'Dotnet-ef database update'
