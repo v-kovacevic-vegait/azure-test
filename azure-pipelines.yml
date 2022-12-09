@@ -39,12 +39,11 @@ stages:
 
 - stage: Dev
   displayName: Deploy to Dev
-  pool:
-    vmImage: ubuntu-latest  
-    
   jobs:
     - deployment: Deploy to Dev
       environment: DEV
+      pool:
+        vmImage: ubuntu-latest  
       strategy:
         runOnce:
           deploy:
