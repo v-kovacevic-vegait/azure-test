@@ -40,7 +40,7 @@ stages:
 - stage: Dev
   displayName: Deploy to Dev
   jobs:
-    - deployment: Deploy to Dev
+    - deployment: DeployDev
       environment: DEV
       pool:
         vmImage: ubuntu-latest  
