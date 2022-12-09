@@ -40,47 +40,51 @@ stages:
 - stage: Dev
   displayName: Deploy to Dev
   jobs:
-    - job: DeployDev
+    - deployment: DeployDev
+      environment: DEV
       pool:
         vmImage: ubuntu-latest  
 
-      steps:
-        - task: DotNetCoreCLI@2
-          displayName: Install dotnet-ef
-          inputs:
-            command: 'custom'
-            custom: 'tool'
-            arguments: 'install --global dotnet-ef'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - checkout: self
+            - task: DotNetCoreCLI@2
+              displayName: Install dotnet-ef
+              inputs:
+                command: 'custom'
+                custom: 'tool'
+                arguments: 'install --global dotnet-ef'
 
-        - script: dotnet tool restore
-          displayName: 'Dotnet tool restore'
+            - script: dotnet tool restore
+              displayName: 'Dotnet tool restore'
 
-        - task: DotNetCoreCLI@2
-          displayName: Check dotnet-ef version
-          inputs:
-            command: 'custom'
-            custom: 'ef'
-            arguments: '--version'
+            - task: DotNetCoreCLI@2
+              displayName: Check dotnet-ef version
+              inputs:
+                command: 'custom'
+                custom: 'ef'
+                arguments: '--version'
+                
+            - task: DownloadBuildArtifacts@0
+              displayName: Download artifact
+              inputs:
+                buildType: 'current'
+                project: '474863c3-dee8-420d-b794-4679642f5427'
+                artifactName: 'drop'
+                buildVersionToDownload: 'latest'
+                downloadType: 'single'
+                downloadPath: '$(System.ArtifactsDirectory)'
             
-        - task: DownloadBuildArtifacts@0
-          displayName: Download artifact
-          inputs:
-            buildType: 'current'
-            project: '474863c3-dee8-420d-b794-4679642f5427'
-            artifactName: 'drop'
-            buildVersionToDownload: 'latest'
-            downloadType: 'single'
-            downloadPath: '$(System.ArtifactsDirectory)'
-        
-        - task: FileTransform@1
-          displayName: 'File transformation: appsettings.json'
-          inputs:
-            folderPath: '$(System.ArtifactsDirectory)/**/*.zip'
-            fileType: 'json'
-            targetFiles: '**/appsettings.json'
-      
-        - script: |
-            ls
-            dotnet-ef database update --connection "$(ConnectionStringDev)"
-          displayName: 'Dotnet-ef database update'
-
+            - task: FileTransform@1
+              displayName: 'File transformation: appsettings.json'
+              inputs:
+                folderPath: '$(System.ArtifactsDirectory)/**/*.zip'
+                fileType: 'json'
+                targetFiles: '**/appsettings.json'
+          
+            - script: |
+                ls
+                dotnet-ef database update --connection "$(ConnectionStringDev)"
+              displayName: 'Dotnet-ef database update'
