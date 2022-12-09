@@ -85,7 +85,7 @@ stages:
             
               - script: |
                   cd drop
-                  cd s
+                  ls
                   dotnet-ef database update --connection "$(ConnectionStringDev)"
                 displayName: 'Dotnet-ef database update'
 
