@@ -84,7 +84,8 @@ stages:
                   targetFiles: '**/appsettings.json'
             
               - script: |
-                  ls
+                  cd drop
+                  cd s
                   dotnet-ef database update --connection "$(ConnectionStringDev)"
                 displayName: 'Dotnet-ef database update'
 
