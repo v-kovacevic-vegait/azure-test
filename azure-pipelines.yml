@@ -149,7 +149,6 @@ stages:
                 dotnet-ef database update --connection "$(ConnectionStringProd)"
               displayName: 'Dotnet-ef database update'
                 
-            
             - task: AzureWebApp@1
               inputs:
                 azureSubscription: 'name'
