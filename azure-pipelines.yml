@@ -148,10 +148,12 @@ stages:
                 ls
                 dotnet-ef database update --connection "$(ConnectionStringProd)"
               displayName: 'Dotnet-ef database update'
-             
+                
             - task: AzureRmWebAppDeployment@4
               inputs:
                 ConnectionType: 'AzureRM'
+                azureSubscription: 'name'
                 appType: 'webAppLinux'
                 WebAppName: 'azure-mealforfamily-test'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+            
