@@ -25,10 +25,10 @@ namespace MealForFamily.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("test")]
+        [HttpGet("test")]
         public async Task<IActionResult> Test(AuthenticateRequest request)
         {
-            String response = "test2";
+            String response = "test";
             return Ok(response);
         }
     }

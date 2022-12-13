@@ -14,6 +14,6 @@ namespace MealForFamily.Models
         [Required]
         public string Description { get; set; } = string.Empty;
 
-        public string NewTest3 { get; set; } = string.Empty;
+        public string NewTest4 { get; set; } = string.Empty;
     }
 }
