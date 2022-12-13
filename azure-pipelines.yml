@@ -4,7 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - dev
 
 variables:
   buildConfiguration: 'Release'
@@ -40,6 +43,7 @@ stages:
   variables:
     ConnectionStrings.DefaultConnection: $(ConnectionStringDev)
   displayName: Deploy to Dev
+  condition: contains(variables['Build.SourceBranch'], 'refs/heads/dev')
   jobs:
     - deployment: DeployDev
       environment: DEV
@@ -94,6 +98,7 @@ stages:
   variables:
     ConnectionStrings.DefaultConnection: $(ConnectionStringProd)
   displayName: Deploy to Prod
+  condition: contains(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - deployment: DeployProd
       environment: PROD
