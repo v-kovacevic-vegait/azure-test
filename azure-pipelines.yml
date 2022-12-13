@@ -157,3 +157,9 @@ stages:
                 WebAppName: 'azure-mealforfamily-test'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
             
+            - task: AzureWebApp@1
+              inputs:
+                azureSubscription: 'name'
+                appType: 'webAppLinux'
+                appName: 'azure-mealforfamily-test'
+                package: '$(System.DefaultWorkingDirectory)/**/*.zip'
