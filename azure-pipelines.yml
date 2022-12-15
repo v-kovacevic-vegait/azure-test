@@ -153,5 +153,5 @@ stages:
               inputs:
                 azureSubscription: 'name'
                 appType: 'webAppLinux'
-                appName: 'azure-mealforfamily-test'
+                appName: '$(AppServiceNameProd)'
                 package: '$(System.ArtifactsDirectory)/**/*.zip'
