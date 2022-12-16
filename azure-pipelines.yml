@@ -21,7 +21,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-
     - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'Dotnet build $(buildConfiguration)'
       
@@ -49,7 +48,6 @@ stages:
       environment: DEV
       pool:
         vmImage: ubuntu-latest  
-
       strategy:
         runOnce:
           deploy:
@@ -64,13 +62,6 @@ stages:
 
             - script: dotnet tool restore
               displayName: 'Dotnet tool restore'
-
-            - task: DotNetCoreCLI@2
-              displayName: Check dotnet-ef version
-              inputs:
-                command: 'custom'
-                custom: 'ef'
-                arguments: '--version'
                 
             - task: DownloadBuildArtifacts@0
               displayName: Download artifact
@@ -92,7 +83,7 @@ stages:
             - script: |
                 ls
                 dotnet-ef database update --connection "$(ConnectionStringDev)"
-              displayName: 'Dotnet-ef database update'
+              displayName: 'Update Database'
 
 - stage: Prod
   variables:
@@ -104,7 +95,6 @@ stages:
       environment: PROD
       pool:
         vmImage: ubuntu-latest  
-
       strategy:
         runOnce:
           deploy:
@@ -119,13 +109,6 @@ stages:
 
             - script: dotnet tool restore
               displayName: 'Dotnet tool restore'
-
-            - task: DotNetCoreCLI@2
-              displayName: Check dotnet-ef version
-              inputs:
-                command: 'custom'
-                custom: 'ef'
-                arguments: '--version'
                 
             - task: DownloadBuildArtifacts@0
               displayName: Download artifact
@@ -147,9 +130,10 @@ stages:
             - script: |
                 ls
                 dotnet-ef database update --connection "$(ConnectionStringProd)"
-              displayName: 'Dotnet-ef database update'
+              displayName: 'Update Database'
                 
             - task: AzureWebApp@1
+              displayName: 'Deploy to Web App'
               inputs:
                 azureSubscription: '$(ServiceConnection)'
                 appType: 'webAppLinux'
