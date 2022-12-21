@@ -87,7 +87,7 @@ stages:
 
 - stage: Prod
   variables:
-    ConnectionStrings.DefaultConnection: $(ConnectionString)
+    ConnectionStrings.DefaultConnection: $(ConnectionStringDev)
   displayName: Deploy to Prod
   condition: contains(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
@@ -136,7 +136,7 @@ stages:
           
             - script: |
                 ls
-                dotnet-ef database update --connection "$(ConnectionStringProd)"
+                dotnet-ef database update --connection "$(ConnectionStringDev)"
               displayName: 'Update Database'
                 
             - task: AzureWebApp@1
