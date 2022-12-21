@@ -10,7 +10,7 @@ trigger:
     - dev
 
 variables:
-  buildConfiguration: 'Release'
+- group: dev-variables
 
 stages:
 - stage: Build
@@ -21,8 +21,8 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - script: dotnet build --configuration $(buildConfiguration)
-      displayName: 'Dotnet build $(buildConfiguration)'
+    - script: dotnet build --configuration Release
+      displayName: 'Dotnet build Release'
       
     - task: DotNetCoreCLI@2
       inputs:
@@ -129,7 +129,7 @@ stages:
           
             - script: |
                 ls
-                dotnet-ef database update --connection "$(ConnectionStringProd)"
+                dotnet-ef database update --connection "$(ConnectionString)"
               displayName: 'Update Database'
                 
             - task: AzureWebApp@1
@@ -137,5 +137,5 @@ stages:
               inputs:
                 azureSubscription: '$(ServiceConnection)'
                 appType: 'webAppLinux'
-                appName: '$(AppServiceNameProd)'
+                appName: '$(AppServiceName)'
                 package: '$(System.ArtifactsDirectory)/**/*.zip'
