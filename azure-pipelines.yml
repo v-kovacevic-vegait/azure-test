@@ -9,7 +9,8 @@ trigger:
     - master
     - dev
 
-
+variables:
+- group: dev-variables
 
 stages:
 - stage: Build
@@ -134,7 +135,7 @@ stages:
           
             - script: |
                 ls
-                dotnet-ef database update --connection "$(ConnectionString)"
+                dotnet-ef database update --connection "$(ConnectionStringProd)"
               displayName: 'Update Database'
                 
             - task: AzureWebApp@1
@@ -142,7 +143,7 @@ stages:
               inputs:
                 azureSubscription: '$(ServiceConnection)'
                 appType: 'webAppLinux'
-                appName: '$(AppServiceName)'
+                appName: '$(AppServiceNameProd)'
                 package: '$(System.ArtifactsDirectory)/**/*.zip'
 
 
