@@ -87,7 +87,7 @@ stages:
 
 - stage: Prod
   variables:
-    ConnectionStrings.DefaultConnection: $(ConnectionStringProd)
+    ConnectionStrings.DefaultConnection: $(ConnectionString)
   displayName: Deploy to Prod
   condition: contains(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
