@@ -9,8 +9,7 @@ trigger:
     - master
     - dev
 
-variables:
-- group: dev-variables
+
 
 stages:
 - stage: Build
@@ -99,6 +98,12 @@ stages:
         runOnce:
           deploy:
             steps:
+            - task: AzureKeyVault@2
+              inputs:
+                azureSubscription: 'name'
+                KeyVaultName: 'azure-mealforfamily-keys'
+                SecretsFilter: '*'
+                RunAsPreJob: true
             - checkout: self
             - task: DotNetCoreCLI@2
               displayName: Install dotnet-ef
@@ -139,3 +144,6 @@ stages:
                 appType: 'webAppLinux'
                 appName: '$(AppServiceName)'
                 package: '$(System.ArtifactsDirectory)/**/*.zip'
+
+
+  
